@@ -22,7 +22,7 @@ namespace WebApplication2.Migrations
 
             if (userManager.FindByName("foo") == null)
             {
-                userManager.Create(new ApplicationUser { UserName = "bar", Name = "Bar User" });
+                userManager.Create(new ApplicationUser { UserName = "bar", Name = "Bar User" }, "password");
             }
         }
     }
