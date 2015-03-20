@@ -6,23 +6,16 @@ namespace WebApplication2.Controllers
 {
     public class UserController : Controller
     {
-        private ApplicationUserManager _userManager;
+        private readonly ApplicationUserManager _userManager;
 
-        public ApplicationUserManager UserManager
+        public UserController(ApplicationUserManager userManager)
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            _userManager = userManager;
         }
-
+       
         public ActionResult Index()
         {
-            return View(UserManager.Users);
+            return View(_userManager.Users);
         }
     }
 }

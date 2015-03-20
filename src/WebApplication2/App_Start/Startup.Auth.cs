@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using WebApplication2.Ioc;
 using WebApplication2.Models;
 
 namespace WebApplication2
@@ -14,10 +15,12 @@ namespace WebApplication2
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            var dependencyResolver = DependencyResolver.Instance;
+
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext(() => dependencyResolver.Get<ApplicationDbContext>());
+            app.CreatePerOwinContext(() => dependencyResolver.Get<ApplicationUserManager>());
+            app.CreatePerOwinContext(() => dependencyResolver.Get<ApplicationSignInManager>());
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
