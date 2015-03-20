@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebApplication2.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
