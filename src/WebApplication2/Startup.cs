@@ -1,7 +1,6 @@
 ﻿using Microsoft.Owin;
 using Ninject.Web.Common.OwinHost;
 using Owin;
-using WebApplication2.Ioc;
 
 [assembly: OwinStartupAttribute(typeof(WebApplication2.Startup))]
 namespace WebApplication2
@@ -10,7 +9,7 @@ namespace WebApplication2
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseNinjectMiddleware(() => DependencyResolver.Instance.Kernel);
+            app.UseNinjectMiddleware();
 
             ConfigureAuth(app);
         }
